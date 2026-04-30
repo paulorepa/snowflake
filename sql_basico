@@ -1,25 +1,5 @@
-CREATE STAGE repa_stage
+CREATE STAGE repa_stage2
   FILE_FORMAT = (TYPE='CSV' SKIP_HEADER=1
                  FIELD_OPTIONALLY_ENCLOSED_BY='"');
 
 
-CREATE OR REPLACE SECRET git_token_secret
-    TYPE = PASSWORD
-    USERNAME = 'paulorepa'
-    PASSWORD = 'Abacaxi19651965@';
-
-    CREATE OR REPLACE API INTEGRATION git_api_integration
-    API_PROVIDER = git_https_api
-    API_ALLOWED_PREFIXES = ('https://github.com/paulorepa/snowflake') -- URL do seu repo
-    ALLOWED_AUTHENTICATION_SECRETS = (git_token_secret) -- Criado no passo 1
-    ENABLED = TRUE;
-
-
-CREATE OR REPLACE GIT REPOSITORY minha_integracao_git
-    ORIGIN = 'https://github.com/paulorepa/snowflake'
-    API_INTEGRATION = git_api_integration
-    GIT_CREDENTIALS = git_token_secret;
-
-ALTER GIT REPOSITORY minha_integracao_git FETCH;
-
-LS @minha_integracao_git;
