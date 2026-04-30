@@ -1,0 +1,13 @@
+select * from USE DATABASE ASICS_LAB;
+SELECT
+    p.PEDIDO_ID,
+    p.DT_PEDIDO,
+    c.NOME             AS cliente,
+    c.CIDADE,
+    c.SEGMENTO,
+    p.VALOR_LIQUIDO,
+    p.STATUS_PEDIDO,
+    p.FORMA_PAGAMENTO
+FROM BRZ_PEDIDOS     p
+JOIN BRZ_CLIENTES    c ON c.CLIENTE_ID = p.CLIENTE_ID
+ORDER BY p.DT_PEDIDO;
